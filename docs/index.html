@@ -1,1 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Autonomous Systems | Alejandro Reynoso</title>
+<meta name="description" content="From self-improving procedures to adaptive organizations and artificial societies. Explore nine monograph files, seven Colab notebooks, and a methodological ladder of advanced autonomy.">
+<meta name="author" content="Alejandro Reynoso"><meta name="theme-color" content="#071d35">
+<meta property="og:type" content="website"><meta property="og:title" content="Advanced Autonomous Systems | Alejandro Reynoso">
+<meta property="og:description" content="Autonomy moves upward: procedures, organizations, relationships, institutions, and boundaries. A collection of monographs and computational laboratories.">
+<meta name="twitter:card" content="summary">
+<style>
+    :root{
+      --ink:#152231;
+      --navy:#071d35;
+      --deep:#041426;
+      --paper:#f7f5ef;
+      --white:#fff;
+      --gold:#c9a34c;
+      --gold-dark:#8a6b27;
+      --gold-soft:#e7d49a;
+      --mist:#edf2f5;
+      --muted:#607080;
+      --line:#d9d5ca;
+      --max:1240px;
+    }
 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      line-height:1.65;
+    }
+    a{color:inherit;text-decoration:none}
+    button,a{transition:color .2s,background .2s,border-color .2s,transform .2s}
+    a:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+    .page{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .serif,h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.03}
+    .skip-link{position:absolute;left:-9999px;top:auto}
+    .skip-link:focus{left:18px;top:18px;z-index:100;background:var(--gold);color:var(--deep);padding:12px 16px;font-weight:800}
+
+    .topbar{
+      background:var(--deep);
+      color:white;
+      position:sticky;
+      top:0;
+      z-index:20;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:13px;font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+    .brand-mark{width:39px;height:39px;border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-family:Georgia,serif;font-size:1.1rem}
+    .nav-links{display:flex;align-items:center;gap:28px;font-size:.82rem;font-weight:700}
+    .nav-links a:hover{color:var(--gold)}
+
+    .hero{background:var(--navy);color:white;overflow:hidden}
+    .hero-grid{min-height:720px;display:grid;grid-template-columns:1.4fr .75fr;gap:80px;align-items:center;padding:98px 0 84px}
+    .eyebrow,.kicker{margin:0 0 20px;color:var(--gold);font-size:.76rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase}
+    .hero h1{font-size:clamp(3.6rem,7.2vw,7.3rem);letter-spacing:-.055em;margin:0;max-width:950px}
+    .hero h1 em{color:var(--gold);font-style:normal}
+    .hero-lead{font-family:Georgia,serif;font-size:clamp(1.3rem,2vw,1.85rem);line-height:1.35;max-width:850px;color:#e5edf3;margin:30px 0 16px}
+    .hero-body{max-width:780px;color:#b9c7d2;font-size:1.03rem}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+    .button{display:inline-flex;gap:18px;align-items:center;justify-content:center;padding:15px 21px;border:1px solid transparent;font-size:.82rem;font-weight:800;letter-spacing:.02em}
+    .button.primary{background:var(--gold);color:var(--navy)}
+    .button.secondary{border-color:rgba(255,255,255,.36);color:white}
+    .button:hover{transform:translateY(-2px)}
+    .button.primary:hover{background:var(--gold-soft)}
+    .button.secondary:hover{border-color:var(--gold);color:var(--gold-soft)}
+    .hero-panel{position:relative;background:var(--paper);color:var(--ink);padding:42px 34px 34px;min-height:430px;box-shadow:24px 24px 0 rgba(0,0,0,.16)}
+    .hero-panel:before{content:"GT";position:absolute;right:22px;top:14px;font-family:Georgia,serif;font-size:7rem;color:rgba(201,163,76,.12);line-height:1}
+    .panel-kicker{color:var(--gold);text-transform:uppercase;font-size:.7rem;letter-spacing:.14em;font-weight:850}
+    .hero-panel h2{font-size:2.45rem;margin:38px 0 34px}
+    .stats{border-top:1px solid var(--line)}
+    .stats div{display:flex;align-items:center;gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+    .stats strong{font:500 2rem Georgia;color:var(--gold);min-width:48px}
+    .stats span{font-size:.82rem;font-weight:750}
+    .hero-index{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid rgba(255,255,255,.16)}
+    .hero-index a{padding:21px 14px;border-right:1px solid rgba(255,255,255,.16);font-size:.72rem;color:#cad7e0}
+    .hero-index a:hover{background:rgba(255,255,255,.04);color:white}
+    .hero-index span{display:block;color:var(--gold);font-weight:900;margin-bottom:5px}
+
+    .section{padding:110px 0}
+    .split{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:start}
+    .section h2{font-size:clamp(2.7rem,5vw,5.2rem);letter-spacing:-.045em;margin:0}
+    .intro{font-size:1.17rem;color:#33465a;margin:5px 0 0}
+    .principles{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+    .principles article{padding:30px 24px 34px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .number{color:var(--gold);font-size:.75rem;font-weight:900}
+    .principles h3{font-size:1.5rem;margin:42px 0 14px}
+    .principles p{font-size:.91rem;color:var(--muted);margin:0}
+
+    .roadmap{background:var(--deep);color:white;padding:110px 0}
+    .roadmap-head{display:grid;grid-template-columns:1fr .7fr;gap:80px;margin-bottom:60px}
+    .roadmap h2{font-size:clamp(3rem,5vw,5.4rem);margin:0}
+    .roadmap-head>p{color:#b9c7d2;font-size:1.1rem}
+    .stages{display:grid;gap:14px}
+    .stage{display:grid;grid-template-columns:105px 1fr 1fr 42px;background:#f6f3ea;color:var(--ink);min-height:160px;transition:.2s}
+    .stage:hover{transform:translateX(7px);background:white}
+    .stage-no{background:var(--gold);color:var(--navy);padding:28px 20px;font:500 2.2rem Georgia}
+    .stage-main,.stage-outcome{padding:25px 30px}
+    .stage-label{text-transform:uppercase;letter-spacing:.12em;color:var(--gold-dark);font-size:.68rem;font-weight:900}
+    .stage h3{font-size:1.75rem;margin:8px 0}
+    .stage-main p,.stage-outcome p{margin:0;color:#485a6c;font-size:.88rem}
+    .stage-outcome{border-left:1px solid var(--line)}
+    .stage-outcome strong{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em}
+    .arrow{display:grid;place-items:center;font-size:1.4rem;color:var(--gold-dark)}
+
+    .resources{background:var(--mist)}
+    .resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:60px}
+    .resource{background:white;padding:40px;min-height:390px;display:flex;flex-direction:column;align-items:flex-start}
+    .resource.dark{background:var(--navy);color:white}
+    .resource .tag{color:var(--gold-dark);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:900}
+    .resource.dark .tag{color:var(--gold)}
+    .resource h3{font-size:2.35rem;margin:25px 0 16px}
+    .resource p{color:var(--muted);max-width:560px}
+    .resource.dark p{color:#b9c7d2}
+    .resource .button{margin-top:auto;background:var(--gold);color:var(--navy)}
+    .resource .meta{margin:0 0 18px;color:var(--gold-dark);font-size:.72rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    .resource.dark .meta{color:var(--gold-soft)}
+    .resource.featured{grid-column:1/-1;display:grid;grid-template-columns:.65fr 1.35fr;gap:60px;min-height:0}
+    .resource.featured h3{margin-top:0}
+
+    .labs{background:var(--paper)}
+    .lab-group{margin-top:64px}
+    .lab-group-head{display:grid;grid-template-columns:140px 1fr;gap:28px;align-items:start;padding:0 0 20px;border-bottom:1px solid var(--line)}
+    .lab-group-head span{color:var(--gold-dark);font-size:.73rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .lab-group-head h3{font-size:2rem;margin:0}
+    .lab-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px}
+    .lab-card{display:grid;grid-template-columns:70px 1fr;align-items:start;background:white;border:1px solid var(--line);padding:26px;transition:.2s;min-height:235px}
+    .lab-card:hover{transform:translateY(-3px);border-color:var(--gold)}
+    .lab-number{font:500 1.7rem Georgia;color:var(--gold)}
+    .lab-card h3{font-size:1.35rem;line-height:1.15;margin:0 0 8px}
+    .lab-card p{font-size:.84rem;color:var(--muted);margin:0 0 18px}
+    .lab-role{display:block;color:var(--gold-dark);font-size:.68rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+    .lab-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:auto}
+    .lab-links a{font-size:.72rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--gold)}
+    .lab-links a:hover{color:var(--gold-dark)}
+
+    .framework{background:var(--navy);color:white}
+    .framework-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:90px;align-items:start}
+    .framework h2{font-size:clamp(3rem,5vw,5.5rem);margin:0}
+    .framework blockquote{font:500 1.55rem/1.5 Georgia;margin:0;padding-left:30px;border-left:2px solid white}
+    .duties{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:42px}
+    .duty{border-top:1px solid rgba(255,255,255,.5);padding-top:15px}
+    .duty strong{display:block;font-size:.87rem;margin-bottom:7px}
+    .duty span{font-size:.84rem;color:var(--gold-soft)}
+
+    .experience{background:var(--paper)}
+    .cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px}
+    .cycle article{position:relative;background:white;border-right:1px solid var(--line);padding:34px 28px;min-height:245px}
+    .cycle span{color:var(--gold-dark);font-weight:900}
+    .cycle h3{font-size:2rem;margin:48px 0 12px}
+    .cycle p{font-size:.9rem;color:var(--muted)}
+
+    .author{background:var(--navy);color:white}
+    .author-grid{display:grid;grid-template-columns:220px 1fr;gap:75px;align-items:center}
+    .author-mark{width:200px;height:200px;border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;position:relative}
+    .author-mark:after{content:"";position:absolute;width:130px;height:130px;border:1px solid var(--gold);border-radius:50%}
+    .author-mark span{font:500 3rem Georgia;z-index:1}
+    .author h2{font-size:clamp(2.8rem,5vw,5rem);margin:0 0 24px}
+    .author p{color:#b9c7d2;max-width:850px;font-size:1.05rem}
+    .author .disclosure{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.2);font-size:.86rem;color:var(--gold-soft)}
+
+    .footer{background:var(--deep);color:#91a3b2;padding:40px 0;font-size:.78rem}
+    .footer-grid{display:grid;grid-template-columns:1fr auto;gap:30px}
+    .footer strong{color:white}
+    .footer a{color:white;margin-left:22px}
+    .footer a:hover{color:var(--gold)}
+
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hero-grid,.split,.roadmap-head,.framework-grid,.author-grid,.resource.featured{grid-template-columns:1fr}
+      .hero-grid{padding:70px 0;gap:45px}
+      .hero-index{grid-template-columns:1fr 1fr}
+      .principles,.cycle{grid-template-columns:1fr 1fr}
+      .stage{grid-template-columns:68px 1fr 34px}
+      .stage-outcome{display:none}
+      .resource-grid,.lab-grid{grid-template-columns:1fr}
+      .resource.featured{grid-column:auto;gap:20px}
+      .author-mark{width:150px;height:150px}
+      .duties{grid-template-columns:1fr}
+    }
+
+    @media(max-width:560px){
+      .page{width:min(100% - 28px,var(--max))}
+      .hero h1{font-size:3.3rem}
+      .hero-index,.principles,.cycle{grid-template-columns:1fr}
+      .section,.roadmap{padding:78px 0}
+      .stage{grid-template-columns:52px 1fr 28px}
+      .stage-no{padding:22px 10px;font-size:1.4rem}
+      .stage-main{padding:20px}
+      .resource{padding:30px;min-height:360px}
+      .resource h3{font-size:2rem}
+      .lab-group-head{grid-template-columns:1fr;gap:8px}
+      .lab-card{grid-template-columns:48px 1fr;padding:21px;min-height:0}
+      .footer-grid{grid-template-columns:1fr}
+      .footer a{margin:0 16px 0 0}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*:before,*:after{transition:none!important}
+    }
+  
+.hero-panel:before{content:"AIAT";font-size:5rem}.hero-grid{grid-template-columns:1.35fr .8fr;gap:65px}.hero h1{font-size:clamp(3.3rem,6.6vw,6.6rem)}
+.kicker,.number,.lab-number{color:var(--gold-dark)}.hero .eyebrow,.roadmap .kicker,.framework .kicker,.author .kicker{color:var(--gold)}
+.nav-links{gap:22px}.nav-links a{font-size:.875rem}.panel-kicker{color:var(--gold-dark)}
+.hero-index a{font-size:.875rem}.stats span{font-size:.9rem}.principles p,.stage-main p,.stage-outcome p,.lab-card p,.duty span,.cycle p{font-size:1rem}
+.lab-links a,.button{font-size:.875rem}.lab-card{grid-template-columns:85px 1fr;min-height:245px}.lab-number{font-size:1.4rem}.lab-card h3{font-size:1.55rem}
+.stage-label,.resource .tag,.resource .meta,.lab-role,.lab-group-head span{font-size:.8rem}.stage-outcome strong{font-size:.85rem}.resource{min-height:430px}
+.resource h3{line-height:1.12}.resource p{margin-bottom:24px}.resource .button{margin-top:auto}.resource .meta{margin-top:auto}
+.implementation-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}.implementation-card{padding:38px;background:white;border-top:3px solid var(--gold)}
+.implementation-card h3{font-size:2.3rem;margin:20px 0}.implementation-card p{color:#485a6c}.implementation-card .button{background:var(--navy);color:white;margin-top:12px}
+.status{padding:18px 20px;border-left:2px solid var(--gold);background:var(--paper);font-size:.95rem}.status strong{color:var(--navy)}
+.mission{background:var(--deep);color:#e5edf3;padding:32px;margin-top:28px}.mission p{color:inherit}.mission .kicker{color:var(--gold);margin-bottom:12px}
+.start-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px}.start-links a{border-bottom:1px solid var(--gold);font-weight:700;font-size:.9rem}
+.footer{font-size:.875rem}.author .disclosure{font-size:1rem}.nav-links a:focus-visible,.button:focus-visible{outline-offset:5px}
+@media(max-width:1050px){.nav-links{gap:14px}.brand{font-size:.7rem}}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.implementation-grid{grid-template-columns:1fr}.nav{height:auto;min-height:76px;flex-wrap:wrap;padding:16px 0;gap:12px}.nav-links{display:flex;flex-wrap:wrap;gap:12px 20px}.hero-panel{max-width:600px}.stage-outcome{display:block;grid-column:2/3;border-left:0;padding-top:0}.arrow{grid-column:3;grid-row:1/3}.stage-no{grid-row:1/3}.split,.framework-grid{gap:32px}}
+@media(max-width:560px){.brand{font-size:.7rem}.nav-links a{font-size:.8rem}.hero-index{grid-template-columns:1fr 1fr}.hero-grid{padding-top:55px}.hero h1{font-size:clamp(2.7rem,12vw,3.6rem)}.hero-panel{padding:30px 24px;box-shadow:10px 10px 0 rgba(0,0,0,.16)}.lab-card{grid-template-columns:1fr;gap:14px}.implementation-card{padding:28px}.resource{min-height:0;gap:12px}.resource .button{margin-top:12px}.stage h3{font-size:1.5rem}.hero-panel h2{font-size:2.1rem}.author-grid{gap:35px}.section h2{font-size:2.65rem}.stage-outcome{padding-left:20px;padding-right:20px}.hero-index a:last-child{grid-column:1/-1}}
+
+.hero h1{font-size:clamp(3rem,5.5vw,5.5rem);line-height:1.05}.hero-connector{display:block;font-size:.48em;line-height:1.4;letter-spacing:-.02em;margin:.35em 0}.hero h1 em{display:block}@media(max-width:560px){.hero h1{font-size:clamp(2.5rem,10.5vw,3.6rem)}}
+
+
+/* Adapt the reference design to the Advanced Autonomous Systems collection. */
+.hero-panel:before{content:"AAS";font-size:6rem}
+.hero-grid{grid-template-columns:1.25fr .85fr;gap:70px;min-height:690px}
+.hero h1{font-size:clamp(3.4rem,6.5vw,6.4rem);line-height:1.02}
+.hero-panel{min-height:450px}.hero-panel h2{position:relative;font-size:2.4rem;line-height:1.1}
+.stats strong{color:var(--gold-dark)}
+.brand-name{display:block}.brand-sub{display:block;color:#aabbc9;font-size:.64rem;letter-spacing:.12em;margin-top:3px}
+.resource{min-height:380px}.resource-content{display:flex;flex-direction:column;flex:1;width:100%}
+.resource h3{font-size:2.2rem}.resource.featured h3{margin-top:24px}
+.resource-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:auto}
+.resource-actions .button{margin-top:0}.companion{font-size:.88rem;font-weight:750;border-bottom:1px solid var(--gold);padding:5px 0}
+.resource .meta{margin-top:auto}.resource.featured .meta{margin-top:12px}
+.lab-card{min-height:285px}.lab-content{display:flex;flex-direction:column;height:100%}
+.lab-status{display:block;font-size:.78rem;color:#526575;border-top:1px solid var(--line);padding-top:12px;margin:0 0 18px}
+.lab-links{gap:12px 20px}.lab-links a{padding:5px 0}
+.section-note{margin:30px 0 0;color:#526575;font-size:.92rem;max-width:950px}
+.section-note a,.setup-copy a{border-bottom:1px solid var(--gold);font-weight:700}
+.stage-outcome p{margin-top:12px}.stage h3{line-height:1.12}
+.setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}
+.setup-card{padding:34px;background:white;border-top:3px solid var(--gold)}
+.setup-card h3{font-size:2rem;line-height:1.15;margin:14px 0 20px}.setup-card p{color:#485a6c}
+.setup-card code{font-size:.86em;overflow-wrap:anywhere;color:var(--navy)}
+.cycle article{display:flex;flex-direction:column}.cycle .start-links{margin-top:auto}
+.cycle h3{font-size:1.8rem}.author-mark{border-radius:0}
+section[id],article[id]{scroll-margin-top:110px}
+@media(max-width:1050px){.hero-grid{gap:35px}.brand-sub{font-size:.58rem}.nav-links{gap:15px}}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px;min-height:0}.hero h1{font-size:clamp(3.7rem,10vw,6.3rem)}.hero-panel{max-width:650px;width:100%;min-height:0}.setup-grid{grid-template-columns:1fr}.nav-links{gap:10px 18px}.nav-links a{padding:5px 0}.resource{min-height:0}.resource.featured{gap:15px}.hero-index a:last-child{grid-column:1/-1}section[id],article[id]{scroll-margin-top:150px}}
+@media(max-width:560px){.hero h1{font-size:clamp(2.9rem,12vw,4rem)}.brand-name{font-size:.67rem}.brand-sub{font-size:.55rem}.hero-grid{gap:32px}.hero-panel h2{font-size:2.1rem}.setup-card{padding:25px}.roadmap h2{font-size:2.65rem}.lab-group-head h3{font-size:1.8rem}.resource h3{font-size:2rem}.hero-index a{padding:16px 12px}.stage-main{padding-right:12px}.stage-outcome{padding-right:12px}.stage:hover{transform:none}.author-grid{gap:35px}.nav-links{gap:8px 14px}.nav-links a{font-size:.76rem}.stage-label{font-size:.7rem}.lab-links a{font-size:.78rem}.section-note{font-size:.88rem}}
+@media print{.topbar,.actions,.hero-index,.skip-link{display:none}.section,.roadmap{padding:35px 0}body,.hero,.roadmap,.framework,.author,.footer{background:white;color:#152231}.hero p,.roadmap p,.author p,.duty span{color:#33465a}.hero-panel{box-shadow:none}.resource,.stage,.lab-card{break-inside:avoid}.page{width:100%}}
+.premise-second{margin-top:24px}.roadmap-note{color:#b9c7d2;margin:30px 0 0;max-width:920px}.roadmap-note a{color:var(--gold-soft);border-bottom:1px solid var(--gold)}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar"><nav class="page nav" aria-label="Primary navigation"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">AR</span><span><span class="brand-name">Advanced Autonomous Systems</span><span class="brand-sub">AI for Financial Practitioners</span></span></a><div class="nav-links"><a href="#journey">Journey</a><a href="#texts">Monographs</a><a href="#notebooks">Notebooks</a><a href="#start">Start here</a><a href="#author">Author</a></div></nav></header>
+<main id="content">
+<section class="hero" id="top"><div class="page hero-grid"><div><p class="eyebrow">Advanced topics · Research &amp; teaching</p><h1>Advanced<br><em>Autonomous</em>Systems</h1><p class="hero-lead">When intelligence begins to organize itself.</p><p class="hero-body">A journey from self-improving procedures to adaptive organizations, constitutional swarms, and interactions between artificial societies. Study the ideas. Inspect the mechanisms. Explore the limits.</p><div class="actions"><a class="button primary" href="#journey">Explore the journey ↓</a><a class="button secondary" href="https://github.com/alexdibol/ai_advanced_autonomous_systems" >Open the repository ↗</a></div></div><aside class="hero-panel" aria-label="Collection overview"><p class="panel-kicker">The central question</p><h2>What happens when<br>autonomy moves<br>into organization?</h2><div class="stats"><div><strong>09</strong><span>Monograph files to frame the questions</span></div><div><strong>07</strong><span>Notebooks to inspect the mechanisms</span></div><div><strong>05</strong><span>Levels of organizational choice</span></div></div></aside></div><nav class="page hero-index" aria-label="Five levels of autonomy"><a href="#journey"><span>01 · PROCEDURES</span>Improve the improver</a><a href="#lab-n2"><span>02 · ORGANIZATIONS</span>Reconfigure capabilities</a><a href="#lab-n5"><span>03 · RELATIONSHIPS</span>Discover collaborators</a><a href="#lab-n6"><span>04 · INSTITUTIONS</span>Choose collaboration rules</a><a href="#lab-n7"><span>05 · BOUNDARIES</span>Connect artificial societies</a></nav></section>
+
+<section class="section page" id="premise"><div class="split"><div><p class="kicker">The architectural premise</p><h2>The system itself<br>becomes a<br>research question.</h2></div><div><p class="intro">A model produces an answer. An agent chooses an action. An advanced autonomous system can also participate in changing the procedures, relationships, and institutions through which its decisions are made.</p><p class="intro premise-second">The teaching is accessible; the subject is not elementary. These laboratories examine adaptability and collective complexity while keeping the underlying mechanisms open to inspection.</p></div></div><div class="principles"><article><span class="number">01</span><h3>Adaptation</h3><p>Make the search procedure or organization a variable that can respond to evidence.</p></article><article><span class="number">02</span><h3>Emergence</h3><p>Study how dispersed knowledge and complementary capabilities produce relationships.</p></article><article><span class="number">03</span><h3>Institutions</h3><p>Examine how collaboration rules are proposed, selected, and translated into behavior.</p></article><article><span class="number">04</span><h3>Governance</h3><p>Keep authority bounded, changes attributable, and organizational decisions inspectable.</p></article></div></section>
+
+<section class="roadmap" id="journey"><div class="page"><div class="roadmap-head"><div><p class="kicker">The methodological ladder</p><h2>Autonomy<br>moves upward.</h2></div><p>At every stage, one more organizational decision becomes variable. The progression is conceptual: the notebooks isolate different mechanisms rather than forming a single executable pipeline.</p></div><div class="stages"><a class="stage" href="#lab-n1"><span class="stage-no">01</span><div class="stage-main"><span class="stage-label">Procedures</span><h3>Improve the improver</h3><p>Search over the method that generates and selects solutions.</p></div><div class="stage-outcome"><strong>STOP</strong><p>Separate inner policy search from outer scaffold optimization.</p></div><span class="arrow" aria-hidden="true">↗</span></a><a class="stage" href="#lab-n2"><span class="stage-no">02</span><div class="stage-main"><span class="stage-label">Organizations</span><h3>Adapt the organization</h3><p>Diagnose missing capabilities; activate or retire approved specialists.</p></div><div class="stage-outcome"><strong>Recursive adaptation</strong><p>Make team composition an explicit, testable decision.</p></div><span class="arrow" aria-hidden="true">↗</span></a><a class="stage" href="#lab-n5"><span class="stage-no">03</span><div class="stage-main"><span class="stage-label">Relationships</span><h3>Let collaboration emerge</h3><p>Discover evidence, signal a need, and recruit complementary expertise.</p></div><div class="stage-outcome"><strong>Swarm discovery</strong><p>Study how local interactions produce a collaboration graph.</p></div><span class="arrow" aria-hidden="true">↗</span></a><a class="stage" href="#lab-n6"><span class="stage-no">04</span><div class="stage-main"><span class="stage-label">Institutions</span><h3>Choose the rules of collaboration</h3><p>Propose social compacts and inspect their collective selection.</p></div><div class="stage-outcome"><strong>Constitutional swarms</strong><p>Trace how an adopted rule changes sharing and coalition formation.</p></div><span class="arrow" aria-hidden="true">↗</span></a><a class="stage" href="#lab-n7"><span class="stage-no">05</span><div class="stage-main"><span class="stage-label">Boundaries</span><h3>Connect autonomous societies</h3><p>Reach beyond local competence through a limited cross-society compact.</p></div><div class="stage-outcome"><strong>ESCAPES</strong><p>Follow information, relationships, and institutional practices across boundaries.</p></div><span class="arrow" aria-hidden="true">↗</span></a></div><p class="roadmap-note">A parallel trading branch explores capability exchange and temporary alliances between existing constellations. <a href="#lab-n4">Explore dynamic ecosystems ↗</a></p></div></section>
+
+<section class="section resources" id="texts"><div class="page"><div class="split"><div><p class="kicker">The reading collection</p><h2>The ideas behind<br>the architecture.</h2></div><p class="intro">Move from the umbrella research agenda to the individual mechanisms and the capstone. Each reading supplies the conceptual language needed to interpret the experiments.</p></div><div class="resource-grid"><article class="resource featured dark" id="text-m0"><div><span class="tag">00 · The umbrella memorandum</span><h3>The research agenda</h3></div><div class="resource-content"><p>From agentic architectures to self-organizing artificial societies. Begin with the central proposition: autonomy can migrate upward into organization itself.</p><p class="meta">Orientation · Entire collection</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/0_The%20Research%20Agenda%20Advanced%20Autonomous%20Systems.pdf" aria-label="Read The research agenda PDF">Read monograph <span aria-hidden="true">↗</span></a></div></div></article><article class="resource" id="text-m1"><div><span class="tag">01 · Foundations</span><h3>When the improver improves itself</h3></div><div class="resource-content"><p>A conceptual introduction to STOP: scaffolds, utility, meta-utility, and the search procedure as an object of improvement.</p><p class="meta">Companion · N1</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/1_Introduction%20to%20Self%20Teaching%20optimizers.pdf" aria-label="Read When the improver improves itself PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n1" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m2"><div><span class="tag">02 · Financial application</span><h3>Self-improving trading systems</h3></div><div class="resource-content"><p>Twenty forecasting models, nested improvement loops, and the essential distinction between a better selection score and better held-out performance.</p><p class="meta">Companion · N1</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/2_Self%20Improving%20%20Algo%20Trading_github.pdf" aria-label="Read Self-improving trading systems PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n1" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m3"><div><span class="tag">03 · Adaptive organization</span><h3>Recursive organizational adaptation</h3></div><div class="resource-content"><p>Observe, diagnose, validate, and adapt. Study bounded specialist activation under an immutable governance layer.</p><p class="meta">Companion · N2 · Extensions N3–N4</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/3_Recursive%20organizational%20adaptation.pdf" aria-label="Read Recursive organizational adaptation PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n2" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m4"><div><span class="tag">04 · Endogenous relationships</span><h3>Swarm Discovery</h3></div><div class="resource-content"><p>Follow dispersed evidence through signals, complementary responses, simple contracts, coalitions, and an evolving collaboration graph.</p><p class="meta">Companion · N5</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/4_Swarm%20Discovery.pdf" aria-label="Read Swarm Discovery PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n5" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m5"><div><span class="tag">05 · Communication as institution</span><h3>The bulletin board</h3></div><div class="resource-content"><p>Explore how a shared communication surface can support unexpected collaboration, social compacts, and transfer across domains.</p><p class="meta">Conceptual bridge · N6–N7</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/5_swarms_agents%20with%20a%20bulletin%20board.pdf" aria-label="Read The bulletin board PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n6" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m6"><div><span class="tag">06 · Collective rule selection</span><h3>The constitutional swarm</h3></div><div class="resource-content"><p>From discovering other agents to proposing constitutions: examine how collective choice begins to shape the rules of cooperation.</p><p class="meta">Companion · N6</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/6_Constitutional_swarms.pdf" aria-label="Read The constitutional swarm PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n6" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource dark" id="text-m7"><div><span class="tag">07 · The capstone</span><h3>ESCAPES</h3></div><div class="resource-content"><p>Three local societies, a competence frontier, a foreign encounter, an institutional collision, and a compact that makes collaboration possible.</p><p class="meta">Companion · N7</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/7_Autonomous%20escapes.pdf" aria-label="Read ESCAPES PDF">Read monograph <span aria-hidden="true">↗</span></a><a class="companion" href="#lab-n7" >Companion lab <span aria-hidden="true">↓</span></a></div></div></article><article class="resource" id="text-m8"><div><span class="tag">08 · Return to the whole</span><h3>A synthesis of the journey</h3></div><div class="resource-content"><p>Revisit the umbrella framework after the experiments. This synthesis entry currently contains the same memorandum as the opening research agenda.</p><p class="meta">Integration · Entire collection</p><div class="resource-actions"><a class="button" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/8_A%20synthesis%20of%20our%20exploration%20of%20autonomous%20systems.pdf" aria-label="Read A synthesis of the journey PDF">Read monograph <span aria-hidden="true">↗</span></a></div></div></article></div><p class="section-note">The correspondence is thematic, not one-to-one: some readings share a notebook, while others frame a broader research agenda. <a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md#monographnotebook-correspondence" >See the complete correspondence table ↗</a></p></div></section>
+
+<section class="section labs" id="notebooks"><div class="page"><div class="split"><div><p class="kicker">The computational laboratories</p><h2>Read the argument.<br>Inspect the system.</h2></div><p class="intro">Seven notebooks make selected mechanisms visible through code, synthetic environments, and recorded outputs. Open a notebook in Colab or inspect its source on GitHub.</p></div><p class="section-note">N1–N7 are navigation labels for this collection. Display titles describe the actual content; original filenames are preserved. GitHub editions omit the large inserted infographics and retain code, text, and generated outputs.</p><div class="lab-group"><div class="lab-group-head"><span>01 · Procedures & organization</span><h3>Improve the search. Reconfigure the team.</h3></div><div class="lab-grid"><article class="lab-card" id="lab-n1"><span class="lab-number">N1</span><div class="lab-content"><span class="lab-role">Search over search</span><h3>The STOP forecasting laboratory</h3><p>Optimize model combinations, then the recipe used to search for them. Compare validation gains with held-out transfer.</p><span class="lab-status">Anthropic key required</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SELF%20TAUGHT%20OPTIMIZERS_github.ipynb" aria-label="Open N1: The STOP forecasting laboratory in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SELF%20TAUGHT%20OPTIMIZERS_github.ipynb" aria-label="Read N1: The STOP forecasting laboratory on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/2_Self%20Improving%20%20Algo%20Trading_github.pdf" aria-label="Read companion monograph for N1">Monograph ↗</a></div></div></article><article class="lab-card" id="lab-n2"><span class="lab-number">N2</span><div class="lab-content"><span class="lab-role">Bounded reconfiguration</span><h3>Recursive organizational adaptation</h3><p>Compare fixed and adaptive trading organizations across six synthetic regimes, with a specialist registry, validation gate, and audit ledger.</p><span class="lab-status">Deterministic fallback available</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/RECURSIVE_ORGANIZATIONAL_ADAPTATION_ALGO_TRADING_github.ipynb" aria-label="Open N2: Recursive organizational adaptation in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/RECURSIVE_ORGANIZATIONAL_ADAPTATION_ALGO_TRADING_github.ipynb" aria-label="Read N2: Recursive organizational adaptation on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/3_Recursive%20organizational%20adaptation.pdf" aria-label="Read companion monograph for N2">Monograph ↗</a></div></div></article></div></div><div class="lab-group"><div class="lab-group-head"><span>02 · A related trading branch</span><h3>From adaptive teams to interacting constellations.</h3></div><div class="lab-grid"><article class="lab-card" id="lab-n3"><span class="lab-number">N3</span><div class="lab-content"><span class="lab-role">Cumulative trading · NB04</span><h3>Build self-adapting teams</h3><p>Translate observed conditions into capability requirements. Assemble feasible specialist teams and inspect additions and removals.</p><span class="lab-status">Earlier-course data and results required</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/ALGO%20TRADING%20SELF%20TAUGHT%20OPTIMIZERS_github.ipynb" aria-label="Open N3: Build self-adapting teams in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/ALGO%20TRADING%20SELF%20TAUGHT%20OPTIMIZERS_github.ipynb" aria-label="Read N3: Build self-adapting teams on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/3_Recursive%20organizational%20adaptation.pdf" aria-label="Read companion monograph for N3">Monograph ↗</a></div></div></article><article class="lab-card" id="lab-n4"><span class="lab-number">N4</span><div class="lab-content"><span class="lab-role">Cumulative trading · NB05</span><h3>Build dynamic ecosystems</h3><p>Let Growth, Recovery, and Preservation constellations negotiate services, exchange knowledge, and form temporary alliances.</p><span class="lab-status">Earlier-course data and results required</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/ALGO%20TRADING%20RECURSIVE%20ORGANIZATIONAL%20ADAPTATION%20SYSTEMS_github.ipynb" aria-label="Open N4: Build dynamic ecosystems in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/ALGO%20TRADING%20RECURSIVE%20ORGANIZATIONAL%20ADAPTATION%20SYSTEMS_github.ipynb" aria-label="Read N4: Build dynamic ecosystems on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/3_Recursive%20organizational%20adaptation.pdf" aria-label="Read companion monograph for N4">Monograph ↗</a></div></div></article></div></div><div class="lab-group"><div class="lab-group-head"><span>03 · Collective autonomy</span><h3>Discover collaborators, institutions, and other societies.</h3></div><div class="lab-grid"><article class="lab-card" id="lab-n5"><span class="lab-number">N5</span><div class="lab-content"><span class="lab-role">Endogenous architecture</span><h3>Swarm Discovery</h3><p>Trace local search, signals, responses, contracts, and the graph they create in a synthetic acquisition universe.</p><span class="lab-status">Deterministic core · See setup notes</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARM_DISCOVERY_github.ipynb" aria-label="Open N5: Swarm Discovery in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARM_DISCOVERY_github.ipynb" aria-label="Read N5: Swarm Discovery on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/4_Swarm%20Discovery.pdf" aria-label="Read companion monograph for N5">Monograph ↗</a></div></div></article><article class="lab-card" id="lab-n6"><span class="lab-number">N6</span><div class="lab-content"><span class="lab-role">Endogenous institutions</span><h3>The constitutional swarm</h3><p>Use semantic assessment and constitutional proposals alongside deterministic voting. Observe how the selected sharing threshold shapes collaboration.</p><span class="lab-status">Anthropic key required</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARMS%20WITH%20A%20BULLETIN%20BOARD_github.ipynb" aria-label="Open N6: The constitutional swarm in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARMS%20WITH%20A%20BULLETIN%20BOARD_github.ipynb" aria-label="Read N6: The constitutional swarm on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/6_Constitutional_swarms.pdf" aria-label="Read companion monograph for N6">Monograph ↗</a></div></div></article><article class="lab-card" id="lab-n7"><span class="lab-number">N7</span><div class="lab-content"><span class="lab-role">The capstone</span><h3>ESCAPES: beyond the local society</h3><p>Follow a bounded foreign appeal through institutional collision, a limited compact, and the return of information and institutional practices.</p><span class="lab-status">Prepared fallbacks available</span><div class="lab-links"><a class="" href="https://colab.research.google.com/github/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARM%20ESCAPES_github.ipynb" aria-label="Open N7: ESCAPES: beyond the local society in Colab">Open in Colab ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/notebooks/SWARM%20ESCAPES_github.ipynb" aria-label="Read N7: ESCAPES: beyond the local society on GitHub">Read notebook ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/7_Autonomous%20escapes.pdf" aria-label="Read companion monograph for N7">Monograph ↗</a></div></div></article></div></div></div></section>
+
+<section class="section framework" id="governance"><div class="page framework-grid"><div><p class="kicker">The discipline that survives</p><h2>More autonomy.<br>More precise<br>questions.</h2></div><div><blockquote>The problem helps shape the organization that solves it. Evidence must establish whether that organization actually helps.</blockquote><div class="duties"><div class="duty"><strong>What is changing?</strong><span>Distinguish a revised answer, a revised search procedure, a revised team, and a revised institution.</span></div><div class="duty"><strong>What remains fixed?</strong><span>Identify the designed substrate: identities, permissions, registries, budgets, and selection mechanisms.</span></div><div class="duty"><strong>What counts as improvement?</strong><span>Separate selection scores from held-out performance, and a working demonstration from a general result.</span></div><div class="duty"><strong>Who authorizes the change?</strong><span>Trace proposal, evaluation, acceptance, implementation, and the record of what followed.</span></div></div></div></div></section>
+
+<section class="section page experience" id="start"><div class="split"><div><p class="kicker">Choose your starting point</p><h2>One collection.<br>Several ways in.</h2></div><p class="intro">Start with the question you want to understand. The monographs support conceptual study; the laboratories invite experimentation and critical comparison.</p></div><div class="cycle"><article><span>01</span><h3>Understand</h3><p>Build a vocabulary for autonomy, endogeneity, organization, and institutional boundaries.</p><div class="start-links"><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/monographs/0_The%20Research%20Agenda%20Advanced%20Autonomous%20Systems.pdf" >Read the agenda ↗</a></div></article><article><span>02</span><h3>Experiment</h3><p>Inspect an improvement loop or an adaptive team, then change one assumption.</p><div class="start-links"><a class="" href="#lab-n1" >Start with the laboratories ↓</a></div></article><article><span>03</span><h3>Explore</h3><p>Follow the emergence of relationships, collective rules, and cross-society interaction.</p><div class="start-links"><a class="" href="#lab-n5" >Explore collective autonomy ↓</a></div></article><article><span>04</span><h3>Investigate</h3><p>Design a stronger baseline, test transfer, or make a proposed institutional rule executable.</p><div class="start-links"><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md#research-directions-opened-by-the-collection" >Open the research directions ↗</a></div></article></div></section>
+
+<section class="section resources" id="running"><div class="page"><div class="split"><div><p class="kicker">Before you run</p><h2>A clear route<br>into the notebooks.</h2></div><p class="intro">The collection contains several kinds of laboratory. Check the setup requirements for the experiment you choose, then run its cells in order.</p></div><div class="setup-grid"><article class="setup-card"><span class="stage-label">Independent teaching environments</span><h3>Local simulation,<br>selective model use.</h3><div class="setup-copy"><p>N1, N2, N5, N6, and N7 construct their synthetic environments internally. N1 and N6 require <code>ANTHROPIC_API_KEY</code>; N2 and N7 provide fallbacks.</p><p>N5 has a deterministic core, but its setup still requests the Anthropic secret. Review the setup notes before running. Model identifiers and live-call budgets are configured inside each notebook.</p><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md#runtime-distinctions" >Read the notebook-specific setup ↗</a></div></article><article class="setup-card"><span class="stage-label">Cumulative trading branch · N3–N4</span><h3>Bring the earlier<br>course artifacts.</h3><div class="setup-copy"><p>The team-reconfiguration and ecosystem notebooks depend on datasets and results produced by earlier course notebooks. Those prerequisite artifacts are not included in this repository.</p><p>Restore the earlier course inputs before an end-to-end run. The initial teaching policy is deterministic; optional live sections use <code>OPENAI_API_KEY</code>.</p><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md#additional-inputs-for-the-cumulative-trading-branch" >Review the required inputs ↗</a></div></article></div><p class="section-note">Saved outputs document particular executions. Synthetic examples illustrate mechanisms within their assumptions; they do not establish general superiority or investment performance. <a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md" >Read the full academic and methodological guide ↗</a></p></div></section>
+
+<section class="section author" id="author"><div class="page author-grid"><div class="author-mark" aria-hidden="true"><span>AR</span></div><div><p class="kicker">Intellectual and academic direction</p><h2>Alejandro Reynoso</h2><p>This collection connects artificial intelligence, quantitative finance, multi-agent systems, and institutional design. Its aim is to make advanced autonomous architectures understandable without overlooking their methodological complexity.</p><p>From improving a search procedure to negotiating the boundary between artificial societies, the central concern is the same: how intelligence can organize, adapt, and remain governable.</p><p class="disclosure"><strong>AI-assisted, human-led.</strong> Artificial intelligence assisted in preparing and integrating the monographs and notebooks, including drafting, coding, explanation, and editorial organization. Intellectual direction, conceptual design, methodological framing, and editorial responsibility belong to Alejandro Reynoso.</p><p class="disclosure"><strong>Open for study and adaptation.</strong> The author's original code and associated documentation are released under the MIT License. Third-party materials retain their respective rights.</p></div></div></section>
+</main>
+<footer class="footer"><div class="page footer-grid"><div><strong>Advanced Autonomous Systems</strong><br>© 2026 Alejandro Reynoso · Research and education</div><div><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems" >GitHub ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/README.md" >Academic guide ↗</a><a class="" href="https://github.com/alexdibol/ai_advanced_autonomous_systems/blob/main/LICENSE" >MIT License ↗</a><a class="" href="#top" >Back to top ↑</a></div></div></footer>
+</body></html>
